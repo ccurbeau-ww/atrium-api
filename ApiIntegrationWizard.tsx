@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { MOCK_PROPERTY_DATA } from './src/mockData';
 
 interface IntegrationConfig {
   name: string;
@@ -35,32 +36,39 @@ const STEPS = [
 ];
 
 // Fake internal entity mapping (simulates your database of org key -> org name mappings)
+// These map property codes to internal display names
 const FAKE_INTERNAL_ENTITY_MAP: Record<string, string> = {
-  // Common ID patterns
-  '1': 'Marriott Downtown',
-  '2': 'Hilton Grand',
-  '3': 'Hyatt Regency',
-  '4': 'Four Seasons Resort',
-  '5': 'The Ritz-Carlton',
-  '6': 'Sheraton Plaza',
-  '7': 'Westin Harbor',
-  '8': 'InterContinental',
-  '9': 'Holiday Inn Express',
-  '10': 'Best Western Plus',
-  // String code patterns
-  'RENEW': 'Hotel Renew Waikiki',
-  'HYATT': 'Hyatt Centric',
-  'MARR': 'Marriott Suites',
-  'HILT': 'Hilton Garden Inn',
-  'IHG': 'IHG Crowne Plaza',
-  'ACC': 'Accor Novotel',
-  'WYN': 'Wyndham Grand',
-  // Fallback for unknown keys
+  // Property codes from the portfolio data
+  'HNLMC': 'Waikiki Beach Marriott',
+  'RENEW': 'Hotel Renew',
+  'ABQMC': 'Albuquerque Marriott',
+  'ATLBC': 'Atlanta Marriott Buckhead',
+  'BDRSF': 'DoubleTree Stamford',
+  'BWGWT': 'Holiday Inn Bowling Green',
+  'CAEGS': 'Embassy Suites Columbia',
+  'CHSEM': 'Embassy Suites Charleston',
+  'CIDMC': 'Cedar Rapids Marriott',
+  'CLTBR': 'Charlotte Airport Hilton',
+  'CRWEM': 'Embassy Suites Charleston WV',
+  'CVGEM': 'Holiday Inn Cincinnati',
+  'DALEM': 'Embassy Suites DFW',
+  'DALHS': 'Hampton Suites Mesquite',
+  'DENAU': 'Crowne Plaza Denver',
+  'DSMDN': 'Embassy Suites Des Moines',
+  'DSMSI': 'Sheraton West Des Moines',
+  'DTWWI': 'Westin Southfield',
+  'DVPTR': 'Radisson Quad City',
+  'FLLMC': 'Marriott Coral Springs',
+  'FNLCO': 'Hilton Fort Collins',
+  'FYVSP': 'Hampton Inn Springdale',
+  'GSOGB': 'Embassy Suites Greensboro',
+  'GSOHW': 'Homewood Suites Greensboro',
+  'GSPES': 'Embassy Suites Greenville',
 };
 
 const getOrgNameFromKey = (key: string | number): string => {
   const keyStr = String(key);
-  return FAKE_INTERNAL_ENTITY_MAP[keyStr] || `Organization ${keyStr}`;
+  return FAKE_INTERNAL_ENTITY_MAP[keyStr] || `Property ${keyStr}`;
 };
 
 const ATTRIBUTE_FIELDS = [
@@ -144,9 +152,10 @@ const getPositionalSampleValues = (data: unknown): (string | number | null)[] =>
 
 export default function ApiIntegrationWizard() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [useDemoData, setUseDemoData] = useState(true); // Demo mode enabled by default
   const [config, setConfig] = useState<IntegrationConfig>({
-    name: '',
-    description: '',
+    name: 'Property Portfolio Feed',
+    description: 'Syncs property data from external API',
     endpoint: '',
     method: 'GET',
     authType: 'none',
@@ -161,14 +170,24 @@ export default function ApiIntegrationWizard() {
   const [manualJsonOverride, setManualJsonOverride] = useState('');
   const [useManualJson, setUseManualJson] = useState(false);
 
-  // Mapping configuration
+  // Mapping configuration - default to positional format for demo data
   const [mappingConfig, setMappingConfig] = useState<MappingConfig>({
-    target: 'portfolio',
-    responseFormat: 'json',
+    target: 'organizations',
+    responseFormat: 'positional',
     keyPath: '',
-    keyIndex: 0,
-    mappings: [],
+    keyIndex: 1, // Property code is at index 1
+    mappings: [
+      { id: '1', externalPath: '3', internalType: 'attributes', internalField: 'region' },
+      { id: '2', externalPath: '19', internalType: 'data', internalField: 'occupancy' },
+    ],
   });
+
+  // Load demo data on mount when demo mode is enabled
+  useEffect(() => {
+    if (useDemoData) {
+      setApiResponse(MOCK_PROPERTY_DATA);
+    }
+  }, [useDemoData]);
 
   const updateConfig = (field: keyof IntegrationConfig, value: string | number) => {
     setConfig((prev) => ({ ...prev, [field]: value }));
@@ -372,10 +391,14 @@ export default function ApiIntegrationWizard() {
     // Move to results step
     setCurrentStep(4);
 
-    // Priority: 1. Manual override data, 2. Live endpoint fetch, 3. Cached response
+    // Priority: 1. Demo data, 2. Manual override, 3. Live endpoint fetch, 4. Cached response
     try {
-      // If manual override is enabled and has data, use it first
-      if (useManualJson && manualJsonOverride && manualJsonOverride.trim()) {
+      // If demo mode is enabled, use mock data
+      if (useDemoData) {
+        setResultsData(MOCK_PROPERTY_DATA);
+        console.log('Using demo data:', MOCK_PROPERTY_DATA.length, 'properties');
+      } else if (useManualJson && manualJsonOverride && manualJsonOverride.trim()) {
+        // Manual override data
         const parsedData = JSON.parse(manualJsonOverride);
         setResultsData(parsedData);
         console.log('Using manual override data:', parsedData);
@@ -689,6 +712,40 @@ export default function ApiIntegrationWizard() {
                       rows={3}
                       className="w-full resize-none rounded-xl border border-slate-600/50 bg-slate-800/60 px-4 py-3 text-white placeholder-slate-500 outline-none ring-violet-500/50 transition-all focus:border-violet-500/50 focus:ring-2"
                     />
+                  </div>
+                </div>
+
+                {/* Demo Mode Toggle */}
+                <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-500/20">
+                        <svg className="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-emerald-300">Demo Mode</h4>
+                        <p className="text-sm text-emerald-200/70">
+                          {useDemoData 
+                            ? 'Using sample property data (25 hotels)' 
+                            : 'Connect to a live API endpoint'}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setUseDemoData(!useDemoData)}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                        useDemoData ? 'bg-emerald-500' : 'bg-slate-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          useDemoData ? 'translate-x-6' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
                   </div>
                 </div>
 

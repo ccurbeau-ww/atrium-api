@@ -1,0 +1,55 @@
+// Mock API response data - Hotel/Property portfolio
+// Format: [id, code, name, region, address, city, state, county, brand, renovationStatus, market, submarket, locationType, classType, group, zip, ?, lat, lng, roomCount]
+
+export const MOCK_PROPERTY_DATA: (string | number | null)[][] = [
+  [1, "HNLMC", "Waikiki Beach Marriott", null, "2552 Kalakaua Avenue", "Honololu", "HI", null, null, null, null, null, null, null, null, "96815", null, null, null, null],
+  [2, "RENEW", "Hotel Renew", "NA", "", "Waikiki", "HI", "", "Astor", "", "", "", "", "", "NA", "0", "0", "21.285", "-157.8357", 72],
+  [3, "ABQMC", "Albuquerque Marriott", null, "5151 San Francisco Road NE", "Albuquerque", "NM", null, null, null, null, null, null, null, null, "87109", null, null, null, null],
+  [4, "ATLBC", "Atlanta Marriott Buckhead Hotel & Conference Center", "EAST", "3405 Lenox Road NE", "Atlanta", "GA", "Fulton", "Marriott", "Renovation Impact", "Atlanta, GA", "Atlanta Buckhead, GA", "Suburban", "Upper Upscale Class", "SOUTHEAST-GROUP B", "30326", "1389", "33.847855", "-84.359917", 349],
+  [5, "BDRSF", "DoubleTree by Hilton Stamford", "EAST", "1 First Stamford Place", "Stamford", "CT", "Fairfield", "Doubletree", "Renovation Impact", "Connecticut Area", "Stamford/Danbury, CT", "Urban", "Upper Upscale Class", "MIDWEST-GROUP B", "6902", "6790", "41.044212", "-73.5513", 484],
+  [6, "BWGWT", "Holiday Inn University Plaza & Sloan Convention Center", "EAST", "1021 Wilkinson Trace", "Bowling Green", "KY", "Warren", "IHG", "No Renovation Impact", "Kentucky Area", "Bowling Green Area, KY", "Interstate", "Upper Midscale Class", "MIDWEST-GROUP B", "42103", "2445", "36.969307", "-86.429199", 218],
+  [7, "CAEGS", "Embassy Suites Hotel Columbia", "EAST", "200 Stoneridge Dr.", "Columbia", "SC", "Richland", "Hilton", "No Renovation Impact", "Columbia, SC", "Columbia West, SC", "Suburban", "Upper Upscale Class", "SOUTHEAST-CAROLINAS", "29210", "8026", "34.014988", "-81.07692", 218],
+  [8, "CHSEM", "Embassy Suites by Hilton Charleston Convention Center", "EAST", "5055 International Boulevard", "North Charleston", "SC", "Charleston", "Hilton", "No Renovation Impact", "Charleston, SC", "Charleston Airport, SC", "Airport", "Upper Upscale Class", "SOUTHEAST-CAROLINAS", "29418", "5951", "32.866802", "-80.018448", 255],
+  [9, "CIDMC", "Cedar Rapids Marriott", null, "1200 Collins Road", "Cedar Rapids", "IA", null, null, null, null, null, null, null, null, "52402", null, null, null, null],
+  [10, "CLTBR", "Charlotte Airport Hilton", "EAST", "2800 Coliseum Centre Drive", "Charlotte", "NC", "Mecklenburg", "Hilton", "No Renovation Impact", "Charlotte, NC-SC", "Charlotte I-77/Southpark, SC", "Suburban", "Upper Upscale Class", "SOUTHEAST-CAROLINAS", "28217", "2394", "35.188145", "-80.914993", 275],
+  [11, "CRWEM", "Embassy Suites Hotel Charleston West Virginia", "EAST", "300 Court Street", "Charleston", "WV", "Kanawha", "Hilton", "No Renovation Impact", "West Virginia", "Charleston, WV", "Urban", "Upper Upscale Class", "MIDWEST-GROUP B", "25301", "1696", "38.353153", "-81.635216", 253],
+  [12, "CVGEM", "Cincinatti Holiday Inn Eastgate", "EAST", "4501 Eastgate Blvd", "Cincinnati Eastgate", "OH", "Clermont", "IHG", "No Renovation Impact", "Cincinti, OH-KY-IN", "Cincinti Northeast/East, OH", "Suburban", "Upper Midscale Class", "MIDWEST-GROUP B", "45245", "1201", "39.099628", "-84.275169", 212],
+  [13, "DALEM", "Embassy Suites DFW Airport North at Outdoor World", "WEST", "2401 Bass Pro Drive", "Grapevine", "TX", "Tarrant", "Hilton", "Renovation Impact", "Fort Worth/Arlington, TX", "Bedford/Grapevine, TX", "Airport", "Upper Upscale Class", "WEST-TEXAS", "76051", "2043", "32.956181", "-97.045204", 329],
+  [14, "DALHS", "Hampton Suites & Convention Center Mesquite", "WEST", "1700 Rodeo Drive", "Mesquite", "TX", "Dallas", "Hilton", "Renovation Impact", "Dallas, TX", "Dallas South/East, TX", "Suburban", "Upper Midscale Class", "WEST-TEXAS", "75150", "3859", "32.764042", "-96.626549", 160],
+  [15, "DENAU", "Crowne Plaza Denver", null, "15500 E 40th Ave", "Denver", "CO", null, null, null, null, null, null, null, null, "80329", null, null, null, null],
+  [16, "DSMDN", "Embassy Suites Des Moines Downtown", "HEARTLAND", "101 East Locust Street", "Des Moines", "IA", "Polk", "Hilton", "No Renovation Impact", "Des Moines, IA", "Des Moines CBD/North, IA", "Urban", "Upper Upscale Class", "MIDWEST-GROUP A", "50309", "1720", "41.588154", "-93.619469", 234],
+  [17, "DSMSI", "West Des Moines Sheraton", "HEARTLAND", "1800 50th Street", "West Des Moines", "IA", "Polk", "Marriott", "Renovation Impact", "Des Moines, IA", "Des Moines Airport/West, IA", "Suburban", "Upper Upscale Class", "MIDWEST-GROUP C", "50266", "1063", "41.599407", "-93.772507", 285],
+  [18, "DTWWI", "The Westin Hotel Southfield", "EAST", "1500 Town Center", "Southfield", "MI", "Oakland", "Marriott", "Renovation Impact", "Detroit, MI", "Southfield/Northwest, MI", "Suburban", "Upper Upscale Class", "MIDWEST-GROUP C", "48075", "1140", "42.475491", "-83.244385", 388],
+  [19, "DVPTR", "Radisson Quad City Plaza", "NA", "111 E 2nd St", "Davenport", "IA", "Scott", "Radisson", "No Renovation Impact", "Iowa Area", "Davenport/Moline, IN", "Urban", "Upscale Class", "NA", "52801", "1501", "41.520782", "-90.573372", 221],
+  [20, "FLLMC", "Coral Springs Marriott", "EAST", "11775 Heron Bay Boulevard", "Coral Springs", "FL", "Broward", "Marriott", "Renovation Impact", "Fort Lauderdale, FL", "Coral Springs/Pompano Beach, FL", "Suburban", "Upper Upscale Class", "SOUTHEAST-GROUP B", "33076", "1941", "26.309603", "-80.283081", 224],
+  [21, "FNLCO", "Hilton Fort Collins", "WEST", "425 West Propsect Road", "Fort Collins", "CO", "Larimer", "Hilton", "Renovation Impact", "Colorado Area", "Fort Collins/Loveland, CO", "Urban", "Upper Upscale Class", "CENTRAL-GROUP A", "80526", "2064", "40.566231", "-105.08265", 255],
+  [22, "FYVSP", "Hampton Inn & Suites - Springdale", "HEARTLAND", "1700 S. 48th Street", "Springdale", "AR", "Washington", "Hilton", "Renovation Impact", "Arkansas Area", "Fayetteville/Springdale, AR", "Small Metro/Town", "Upper Midscale Class", "CENTRAL-GROUP B", "72762", "5882", "36.171303", "-94.185974", 102],
+  [23, "GSOGB", "Embassy Suites Greensboro", "EAST", "204 Centreport Drive", "Greensboro", "NC", "Guilford", "Hilton", "No Renovation Impact", "Greensboro/Winston Salem, NC", "Greensboro, NC", "Airport", "Upper Upscale Class", "SOUTHEAST-CAROLINAS", "27409", "9510", "36.084221", "-79.962906", 219],
+  [24, "GSOHW", "Homewood Suites Greensboro", "EAST", "201 Centreport Dr.", "Greensboro", "NC", "Guilford", "Hilton", "Renovation Impact", "Greensboro/Winston Salem, NC", "Greensboro, NC", "Airport", "Upscale Class", "SOUTHEAST-CAROLINAS", "27409", "9783", "36.084", "-79.9646", 104],
+  [25, "GSPES", "Embassy Suites Greenville", "EAST", "670 Verdae Boulevard", "Greenville", "SC", "Greenville", "Hilton", "No Renovation Impact", "Greenville/Spartanburg, SC", "Greenville, SC", "Resort", "Upper Upscale Class", "SOUTHEAST-CAROLINAS", "29607", "4022", "34.825687", "-82.323898", 268],
+];
+
+// Field index mapping for the positional array
+export const FIELD_INDICES = {
+  id: 0,
+  code: 1,
+  name: 2,
+  region: 3,
+  address: 4,
+  city: 5,
+  state: 6,
+  county: 7,
+  brand: 8,
+  renovationStatus: 9,
+  market: 10,
+  submarket: 11,
+  locationType: 12,
+  classType: 13,
+  group: 14,
+  zip: 15,
+  unknown: 16,
+  latitude: 17,
+  longitude: 18,
+  roomCount: 19,
+};
+
